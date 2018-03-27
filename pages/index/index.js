@@ -1,6 +1,7 @@
 //index.js
 const {connect} = require( '../../libs/wechat-weapp-redux.js' )
 const {addTodoList, setVisibilityFilter, toggleTodo} = require( '../../actions/index.js' )
+const { bindActionCreators } = require('../../libs/redux.js');
 
 const pageConfig = {
   data: {
@@ -29,10 +30,22 @@ const filterTodos = ( todos, filter ) => {
   }
 }
 
-const mapStateToData = state => ({
-  todos: filterTodos( state.todos, state.visibilityFilter ),
-  visibilityFilter: state.visibilityFilter
-})
+const mapStateToData = state => {
+
+  let todos = state.todos;
+  let filters = state.filters;  
+  console.log('------12')
+  console.log(state)
+  return {
+    todos,
+    filters,
+  };
+}  
+// {
+//   todos: filterTodos( state.todos, state.visibilityFilter ),
+//   visibilityFilter: state.visibilityFilter
+// }
+
 
 const mapDispatchToPage = dispatch => ({
   setVisibilityFilter: filter => dispatch(setVisibilityFilter(filter)),
